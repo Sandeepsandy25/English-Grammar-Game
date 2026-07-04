@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>English Grammar Game – Master Levels</title>
+
+    <!-- ===== SEO META TAGS ===== -->
+    <meta name="description" content="Challenge your English grammar skills across infinite levels! From Parts of Speech to Advanced Tenses. Track progress, earn marks, and become a grammar master." />
+    <meta name="keywords" content="English Grammar Game, Grammar Assessment, Learn English, Grammar Quiz, Tenses, Parts of Speech, Grammar Levels, English Challenge" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://englishgrammargame.com/" />
+    <meta property="og:title" content="English Grammar Game – Infinite Grammar Challenge" />
+    <meta property="og:description" content="Master English grammar with level-based assessments. From beginner to advanced, track your improvement." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://englishgrammargame.com/" />
+    <meta name="theme-color" content="#4F46E5" />
+
+    <!-- ===== FIREBASE SDK ===== -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- ===== STYLES ===== -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="app">
+
+        <!-- ====== LOGIN SCREEN ====== -->
+        <div id="loginScreen" class="screen active">
+            <div class="login-header">
+                <div class="logo">✦ Grammar Game</div>
+                <div class="sub">Infinite levels · <span>Master English</span></div>
+            </div>
+
+            <div id="authError" class="error-msg"></div>
+
+            <form id="authForm" class="auth-form">
+                <div>
+                    <label for="authEmail">Email</label>
+                    <input type="email" id="authEmail" placeholder="you@example.com" required />
+                </div>
+                <div>
+                    <label for="authPassword">Password</label>
+                    <input type="password" id="authPassword" placeholder="••••••••" required minlength="6" />
+                </div>
+                <button type="submit" id="authSubmitBtn" class="btn">Sign In</button>
+            </form>
+
+            <div class="auth-toggle">
+                <span id="toggleText">Don't have an account?</span>
+                <button id="toggleAuthMode">Create one</button>
+            </div>
+
+            <div style="margin-top:20px; text-align:center; font-size:0.75rem; color:var(--gray); opacity:0.5; border-top:1px solid rgba(255,255,255,0.04); padding-top:16px;">
+                🔒 Secured with Firebase
+            </div>
+        </div>
+
+        <!-- ====== DASHBOARD SCREEN ====== -->
+        <div id="dashboardScreen" class="screen">
+            <div class="dash-header">
+                <h2>📊 Dashboard</h2>
+                <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                    <span class="user-email" id="dashUserEmail">user@email.com</span>
+                    <button id="logoutBtn" class="logout-btn">✕</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="label">Levels Finished</div>
+                    <div class="value" id="statLevels">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Average Score</div>
+                    <div class="value gold" id="statAvg">0%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Total Marks</div>
+                    <div class="value green" id="statMarks">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Next Level</div>
+                    <div class="value" id="statNext">1</div>
+                </div>
+            </div>
+
+            <div class="improve-section" id="improveSection">
+                <h4>📌 Areas to improve</h4>
+                <p id="improveText">Complete more levels to get personalized feedback.</p>
+            </div>
+
+            <div class="dash-actions">
+                <button id="startAssessmentBtn" class="btn btn-success">▶ Start Assessment</button>
+                <button id="resetProgressBtn" class="btn btn-secondary">↺ Reset</button>
+            </div>
+        </div>
+
+        <!-- ====== ASSESSMENT SCREEN ====== -->
+        <div id="assessmentScreen" class="screen">
+            <div class="flex items-center justify-between" style="margin-bottom:6px;">
+                <span class="level-badge" id="levelBadge">Level 1</span>
+                <span style="color:var(--gray); font-size:0.8rem;" id="questionCounter">1 / 5</span>
+            </div>
+
+            <div class="progress-bar">
+                <div class="fill" id="progressFill"></div>
+            </div>
+
+            <div class="question-text" id="questionText">Loading question…</div>
+
+            <div class="options-grid" id="optionsContainer"></div>
+
+            <div id="assessmentFeedback" style="text-align:center; font-size:0.9rem; min-height:28px; color:var(--gray);"></div>
+
+            <button id="nextQuestionBtn" class="btn btn-secondary" style="display:none;">Next →</button>
+
+            <div id="resultContainer" class="result-box" style="display:none;">
+                <div class="score" id="resultScore">0%</div>
+                <div class="detail" id="resultDetail">Great job!</div>
+                <button id="finishAssessmentBtn" class="btn btn-success mt-16">📊 Go to Dashboard</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== FIREBASE CONFIG ===== -->
+    <script src="firebase/firebase-config.js"></script>
+
+    <!-- ===== APP LOGIC ===== -->
+    <script src="firebase/js/app.js"></script>
+</body>
+</html>
