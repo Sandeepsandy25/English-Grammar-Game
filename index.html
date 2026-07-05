@@ -3,39 +3,35 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>English Grammar Game – Master Levels</title>
+    <title>⚡ Grammar Quest – 72 Levels</title>
 
-    <!-- ===== SEO META TAGS ===== -->
-    <meta name="description" content="Challenge your English grammar skills across infinite levels! From Parts of Speech to Advanced Tenses. Track progress, earn marks, and become a grammar master." />
-    <meta name="keywords" content="English Grammar Game, Grammar Assessment, Learn English, Grammar Quiz, Tenses, Parts of Speech, Grammar Levels, English Challenge" />
+    <!-- SEO -->
+    <meta name="description" content="Master English grammar with 72 epic levels! From Alphabet to Advanced syntax. Challenge yourself with timed questions and track your progress." />
+    <meta name="keywords" content="English Grammar Game, Grammar Quest, Learn Grammar, 72 Levels, Timed Quiz, Tenses, Parts of Speech" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://englishgrammargame.com/" />
-    <meta property="og:title" content="English Grammar Game – Infinite Grammar Challenge" />
-    <meta property="og:description" content="Master English grammar with level-based assessments. From beginner to advanced, track your improvement." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://englishgrammargame.com/" />
-    <meta name="theme-color" content="#4F46E5" />
+    <link rel="canonical" href="https://grammarquest.io/" />
+    <meta property="og:title" content="⚡ Grammar Quest – 72 Levels of English Mastery" />
+    <meta property="og:description" content="Battle through 72 grammar levels with timed questions. Track your scores and become a grammar champion!" />
+    <meta name="theme-color" content="#0d0b1a" />
 
-    <!-- ===== FIREBASE SDK ===== -->
+    <!-- Firebase SDK (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
-    <!-- ===== STYLES ===== -->
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <div id="app">
 
-        <!-- ====== LOGIN SCREEN ====== -->
+        <!-- ========== LOGIN SCREEN ========== -->
         <div id="loginScreen" class="screen active">
             <div class="login-header">
-                <div class="logo">✦ Grammar Game</div>
-                <div class="sub">Infinite levels · <span>Master English</span></div>
+                <div class="logo">⚡ Grammar Quest</div>
+                <div class="sub">72 Levels · <span>Prove Your Skills</span></div>
             </div>
-
             <div id="authError" class="error-msg"></div>
-
             <form id="authForm" class="auth-form">
                 <div>
                     <label for="authEmail">Email</label>
@@ -45,91 +41,85 @@
                     <label for="authPassword">Password</label>
                     <input type="password" id="authPassword" placeholder="••••••••" required minlength="6" />
                 </div>
-                <button type="submit" id="authSubmitBtn" class="btn">Sign In</button>
+                <button type="submit" id="authSubmitBtn" class="btn neon-btn">Sign In</button>
             </form>
-
             <div class="auth-toggle">
                 <span id="toggleText">Don't have an account?</span>
                 <button id="toggleAuthMode">Create one</button>
             </div>
-
-            <div style="margin-top:20px; text-align:center; font-size:0.75rem; color:var(--gray); opacity:0.5; border-top:1px solid rgba(255,255,255,0.04); padding-top:16px;">
-                🔒 Secured with Firebase
-            </div>
+            <div class="footer-credit">🔒 Secured with Firebase</div>
         </div>
 
-        <!-- ====== DASHBOARD SCREEN ====== -->
+        <!-- ========== DASHBOARD ========== -->
         <div id="dashboardScreen" class="screen">
             <div class="dash-header">
-                <h2>📊 Dashboard</h2>
-                <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-                    <span class="user-email" id="dashUserEmail">user@email.com</span>
-                    <button id="logoutBtn" class="logout-btn">✕</button>
-                </div>
+                <h2>🏆 Dashboard</h2>
+                <div class="user-email" id="dashUserEmail">user@email.com</div>
+                <button id="logoutBtn" class="logout-btn">✕</button>
             </div>
 
+            <!-- Stats -->
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="label">Levels Finished</div>
-                    <div class="value" id="statLevels">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="label">Average Score</div>
-                    <div class="value gold" id="statAvg">0%</div>
-                </div>
-                <div class="stat-card">
-                    <div class="label">Total Marks</div>
-                    <div class="value green" id="statMarks">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="label">Next Level</div>
-                    <div class="value" id="statNext">1</div>
-                </div>
+                <div class="stat-card"><div class="label">Levels Done</div><div class="value" id="statLevels">0</div></div>
+                <div class="stat-card"><div class="label">Average Score</div><div class="value gold" id="statAvg">0%</div></div>
+                <div class="stat-card"><div class="label">Total Marks</div><div class="value green" id="statMarks">0</div></div>
+                <div class="stat-card"><div class="label">Next Level</div><div class="value" id="statNext">1</div></div>
             </div>
 
-            <div class="improve-section" id="improveSection">
+            <!-- Improvement -->
+            <div class="improve-section">
                 <h4>📌 Areas to improve</h4>
-                <p id="improveText">Complete more levels to get personalized feedback.</p>
+                <p id="improveText">Complete more levels to get insights.</p>
             </div>
 
+            <!-- Actions -->
             <div class="dash-actions">
-                <button id="startAssessmentBtn" class="btn btn-success">▶ Start Assessment</button>
+                <button id="startAssessmentBtn" class="btn neon-btn">▶ Start Quest</button>
                 <button id="resetProgressBtn" class="btn btn-secondary">↺ Reset</button>
+            </div>
+
+            <!-- ===== NEW: All Levels Grid ===== -->
+            <div class="levels-section">
+                <h3>📚 All Levels</h3>
+                <div class="levels-grid" id="levelsGrid"></div>
             </div>
         </div>
 
-        <!-- ====== ASSESSMENT SCREEN ====== -->
+        <!-- ========== ASSESSMENT ========== -->
         <div id="assessmentScreen" class="screen">
-            <div class="flex items-center justify-between" style="margin-bottom:6px;">
+            <!-- Top bar -->
+            <div class="game-top-bar">
                 <span class="level-badge" id="levelBadge">Level 1</span>
-                <span style="color:var(--gray); font-size:0.8rem;" id="questionCounter">1 / 5</span>
+                <div class="game-stats">
+                    <span class="stat-item" id="scoreDisplay">0</span>
+                    <span class="stat-item timer" id="timerDisplay">15s</span>
+                </div>
             </div>
 
-            <div class="progress-bar">
-                <div class="fill" id="progressFill"></div>
-            </div>
+            <!-- Progress -->
+            <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
 
-            <div class="question-text" id="questionText">Loading question…</div>
-
+            <!-- Question -->
+            <div class="question-text" id="questionText">Loading…</div>
             <div class="options-grid" id="optionsContainer"></div>
 
-            <div id="assessmentFeedback" style="text-align:center; font-size:0.9rem; min-height:28px; color:var(--gray);"></div>
+            <!-- Feedback & Next -->
+            <div id="assessmentFeedback" class="feedback"></div>
+            <button id="nextQuestionBtn" class="btn neon-btn" style="display:none;">Next →</button>
 
-            <button id="nextQuestionBtn" class="btn btn-secondary" style="display:none;">Next →</button>
-
+            <!-- Result box -->
             <div id="resultContainer" class="result-box" style="display:none;">
                 <div class="score" id="resultScore">0%</div>
                 <div class="detail" id="resultDetail">Great job!</div>
-                <button id="finishAssessmentBtn" class="btn btn-success mt-16">📊 Go to Dashboard</button>
+                <button id="finishAssessmentBtn" class="btn neon-btn">📊 Dashboard</button>
             </div>
         </div>
 
     </div>
 
-    <!-- ===== FIREBASE CONFIG ===== -->
+    <!-- Firebase Config -->
     <script src="firebase/firebase-config.js"></script>
-
-    <!-- ===== APP LOGIC ===== -->
+    <!-- App Logic -->
     <script src="firebase/js/app.js"></script>
 </body>
 </html>
